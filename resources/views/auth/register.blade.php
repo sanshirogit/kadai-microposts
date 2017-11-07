@@ -14,9 +14,9 @@
                     {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
                 </div>
                 
-                <div class="form-rgoup">
+                <div class="form-group">
                     {!! Form::label('email', 'Email') !!}
-                    {!! form::email('email', old('email'), ['class => 'form-control']) !!}
+                    {!! Form::email('email', old('email'), ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">

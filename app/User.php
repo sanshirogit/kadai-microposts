@@ -108,7 +108,6 @@ class User extends Model implements AuthenticatableContract,
     {
         //既にお気に入りに追加しているかの確認
         $exist = $this->is_favorite($postId);
-        
         if ($exist) {
             //既にお気に入り登録していれば何もしない
             return false;
@@ -128,7 +127,7 @@ class User extends Model implements AuthenticatableContract,
         
         if ($exist) {
             //既にお気に入り登録していればを外す
-            $this->favorite()->detach($postId);
+            $this->favorites()->detach($postId);
             return true;
         } else {
             //お気に入り登録していなければ何もしない

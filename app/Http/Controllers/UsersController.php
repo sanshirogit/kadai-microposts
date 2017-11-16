@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\User;
+use App\Micropost;
 
 class UsersController extends Controller
 {
@@ -25,13 +26,17 @@ class UsersController extends Controller
         $user = User::find($id);
         $microposts = $user->microposts()->orderBy('created_at', 'desc')->paginate(10);
         
+        $post = Micropost::where('post_id', $id);
+        
         $data = [
             'user' => $user,
             'microposts' => $microposts,
+            'post' => $post,
             ];
             
         $data += $this->counts($user);
         
+
         return view('users.show', $data);
     }
     

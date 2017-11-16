@@ -8,7 +8,6 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\User;
-use App\Micropost;
 
 class UsersController extends Controller
 {
@@ -24,23 +23,19 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $microposts = $user->microposts()->orderBy('created_at', 'desc')->paginate(10);
-        
-        $post = Micropost::where('post_id', $id);
+         $microposts = $user->microposts()->orderBy('created_at', 'desc')->paginate(10);
         
         $data = [
             'user' => $user,
             'microposts' => $microposts,
-            'post' => $post,
-            ];
-            
+        ];
+        
         $data += $this->counts($user);
         
-
         return view('users.show', $data);
     }
     
-    public function followings($id)
+        public function followings($id)
     {
         $user = User::find($id);
         $followings = $user->followings()->paginate(10);
@@ -48,8 +43,8 @@ class UsersController extends Controller
         $data = [
             'user' => $user,
             'users' => $followings,
-            ];
-            
+        ];
+        
         $data += $this->counts($user);
         
         return view('users.followings', $data);
@@ -63,11 +58,28 @@ class UsersController extends Controller
         $data = [
             'user' => $user,
             'users' => $followers,
-            ];
-            
+        ];
+        
         $data += $this->counts($user);
         
         return view('users.followers', $data);
     }
+    
+    public function favorites($id)
+    {
+        //userのデータを取得する
+        $user = User::find($id);
+        // そのユーザーのお気に入りの情報を取得する
+        $favorites = $user->favorites()->paginate(10);
         
+        $data = [
+            'user' => $user,
+            'microposts' => $favorites,
+        ];
+        
+         // 投稿数/フォロー数/フォロワー数を取得する
+        $data += $this->counts($user);
+        
+        return view('users.favorites', $data);
+    }
 }

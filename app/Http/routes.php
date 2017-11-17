@@ -41,5 +41,6 @@ Route::group(['prefix' => 'favorites/{post_id}'], function() {
     Route::get('favorites', 'UsersController@favorites')->name('users.favorites');
 });
     
+Route::get('myprofile', 'UsersController@favorites')->name('myprofile.get');
     
 });
